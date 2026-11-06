@@ -11,6 +11,16 @@ function sendPreset(text) {
     sendMessage();
 }
 
+function startNewChat() {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML = `
+        <div class="message ai-message">
+            <div class="avatar">🔥</div>
+            <div class="content">Started a new chat! How can I help you with your next topic?</div>
+        </div>
+    `;
+}
+
 async function sendMessage() {
     const inputField = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
