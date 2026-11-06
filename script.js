@@ -1,4 +1,15 @@
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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"; 
+
+function checkEnter(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
+function sendPreset(text) {
+    document.getElementById("user-input").value = text;
+    sendMessage();
+}
 
 async function sendMessage() {
     const inputField = document.getElementById("user-input");
@@ -7,6 +18,7 @@ async function sendMessage() {
 
     if (!userText) return;
 
+    // Display User Message
     const userMsgDiv = document.createElement("div");
     userMsgDiv.className = "message user-message";
     userMsgDiv.innerText = userText;
@@ -14,6 +26,7 @@ async function sendMessage() {
     inputField.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
+    // Display Loading / AI Response
     const aiMsgDiv = document.createElement("div");
     aiMsgDiv.className = "message ai-message";
     aiMsgDiv.innerText = "Phoenix is thinking...";
