@@ -21,15 +21,21 @@ async function sendMessage() {
     // Display User Message
     const userMsgDiv = document.createElement("div");
     userMsgDiv.className = "message user-message";
-    userMsgDiv.innerText = userText;
+    userMsgDiv.innerHTML = `
+        <div class="avatar">👤</div>
+        <div class="content">${escapeHtml(userText)}</div>
+    `;
     chatBox.appendChild(userMsgDiv);
     inputField.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Display Loading / AI Response
+    // Display Loading AI Message
     const aiMsgDiv = document.createElement("div");
     aiMsgDiv.className = "message ai-message";
-    aiMsgDiv.innerText = "Phoenix is thinking...";
+    aiMsgDiv.innerHTML = `
+        <div class="avatar">🔥</div>
+        <div class="content">Phoenix is thinking...</div>
+    `;
     chatBox.appendChild(aiMsgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -49,14 +55,24 @@ async function sendMessage() {
         const data = await response.json();
         
         if (data.choices && data.choices.length > 0) {
-            aiMsgDiv.innerText = data.choices[0].message.content;
+            const reply = data.choices[0].message.content;
+            aiMsgDiv.querySelector(".content").innerText = reply;
         } else if (data.error) {
-            aiMsgDiv.innerText = "Groq Error: " + data.error.message;
+            aiMsgDiv.querySelector(".content").innerText = "Groq Error: " + data.error.message;
         } else {
-            aiMsgDiv.innerText = "Received an unexpected response format.";
+            aiMsgDiv.querySelector(".content").innerText = "Received an unexpected response format.";
         }
     } catch (error) {
-        aiMsgDiv.innerText = "Network connection error.";
+        aiMsgDiv.querySelector(".content").innerText = "Network connection error.";
     }
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
