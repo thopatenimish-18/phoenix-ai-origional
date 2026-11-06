@@ -24,7 +24,7 @@ body {
 }
 
 .sidebar {
-    width: 260px;
+    width: 280px;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border);
     display: flex;
@@ -36,7 +36,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .brand-icon {
@@ -54,9 +54,8 @@ body {
     color: var(--text-muted);
 }
 
-/* New Chat Button Styling */
 .sidebar-action {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .new-chat-btn {
@@ -64,7 +63,7 @@ body {
     background: rgba(249, 115, 22, 0.15);
     border: 1px solid var(--accent);
     color: var(--accent);
-    padding: 12px;
+    padding: 10px 12px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
@@ -85,11 +84,48 @@ body {
     color: white;
 }
 
+/* History Section */
+.history-section {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 4px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.history-item {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border-color: var(--text-muted);
+}
+
 .nav-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
 }
 
 .section-title {
@@ -104,11 +140,11 @@ body {
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-muted);
-    padding: 10px 12px;
+    padding: 8px 10px;
     border-radius: 6px;
     text-align: left;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 10px;
