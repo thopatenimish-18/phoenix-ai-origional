@@ -1,4 +1,4 @@
-const GROQ_API_KEY = "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"; 
+const GROQ_API_KEY = "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";
 
 async function sendMessage() {
     const inputField = document.getElementById("user-input");
@@ -7,7 +7,6 @@ async function sendMessage() {
 
     if (!userText) return;
 
-    // Display User Message
     const userMsgDiv = document.createElement("div");
     userMsgDiv.className = "message user-message";
     userMsgDiv.innerText = userText;
@@ -15,7 +14,6 @@ async function sendMessage() {
     inputField.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Display Loading / AI Response
     const aiMsgDiv = document.createElement("div");
     aiMsgDiv.className = "message ai-message";
     aiMsgDiv.innerText = "Phoenix is thinking...";
@@ -36,10 +34,16 @@ async function sendMessage() {
         });
 
         const data = await response.json();
-        const reply = data.choices[0].message.content;
-        aiMsgDiv.innerText = reply;
+        
+        if (data.choices && data.choices.length > 0) {
+            aiMsgDiv.innerText = data.choices[0].message.content;
+        } else if (data.error) {
+            aiMsgDiv.innerText = "Groq Error: " + data.error.message;
+        } else {
+            aiMsgDiv.innerText = "Received an unexpected response format.";
+        }
     } catch (error) {
-        aiMsgDiv.innerText = "An error occurred while connecting to Groq.";
+        aiMsgDiv.innerText = "Network connection error.";
     }
     chatBox.scrollTop = chatBox.scrollHeight;
 }
