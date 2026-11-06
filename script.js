@@ -1,5 +1,12 @@
 const GROQ_API_KEY = "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"; 
 
+let currentChatId = Date.now().toString();
+
+window.onload = function() {
+    loadChatHistoryList();
+    loadActiveChat(currentChatId);
+};
+
 function checkEnter(event) {
     if (event.key === "Enter") {
         sendMessage();
@@ -12,6 +19,7 @@ function sendPreset(text) {
 }
 
 function startNewChat() {
+    currentChatId = Date.now().toString();
     const chatBox = document.getElementById("chat-box");
     chatBox.innerHTML = `
         <div class="message ai-message">
@@ -19,6 +27,68 @@ function startNewChat() {
             <div class="content">Started a new chat! How can I help you with your next topic?</div>
         </div>
     `;
+    saveCurrentChat([]);
+    loadChatHistoryList();
+}
+
+function loadChatHistoryList() {
+    const historyList = document.getElementById("history-list");
+    historyList.innerHTML = "";
+    
+    const keys = Object.keys(localStorage).filter(k => k.startsWith("phoenix_chat_"));
+    keys.sort().reverse(); // Show newest first
+
+    keys.forEach(key => {
+        const chatId = key.replace("phoenix_chat_", "");
+        const chatData = JSON.parse(localStorage.getItem(key));
+        if (chatData && chatData.length > 0) {
+            const firstMsg = chatData[0].text;
+            const btn = document.createElement("button");
+            btn.className = "history-item";
+            btn.innerText = firstMsg;
+            btn.onclick = () => {
+                currentChatId = chatId;
+                renderChat(chatData);
+            };
+            historyList.appendChild(btn);
+        }
+    });
+}
+
+function renderChat(messages) {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML = "";
+    
+    if (messages.length === 0) {
+        chatBox.innerHTML = `
+            <div class="message ai-message">
+                <div class="avatar">🔥</div>
+                <div class="content">Hello! I'm Phoenix. How can I help you master your studies or build your projects today?</div>
+            </div>
+        `;
+        return;
+    }
+
+    messages.forEach(msg => {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = `message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`;
+        msgDiv.innerHTML = `
+            <div class="avatar">${msg.role === 'user' ? '👤' : '🔥'}</div>
+            <div class="content">${escapeHtml(msg.text)}</div>
+        `;
+        chatBox.appendChild(msgDiv);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function saveCurrentChat(messages) {
+    localStorage.setItem(`phoenix_chat_${currentChatId}`, JSON.stringify(messages));
+    loadChatHistoryList();
+}
+
+function getStoredMessages() {
+    const data = localStorage.getItem(`phoenix_chat_${currentChatId}`);
+    return data ? JSON.parse(data) : [];
 }
 
 async function sendMessage() {
@@ -38,6 +108,11 @@ async function sendMessage() {
     chatBox.appendChild(userMsgDiv);
     inputField.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Save to local storage array
+    let messages = getStoredMessages();
+    messages.push({ role: 'user', text: userText });
+    saveCurrentChat(messages);
 
     // Display Loading AI Message
     const aiMsgDiv = document.createElement("div");
@@ -67,6 +142,8 @@ async function sendMessage() {
         if (data.choices && data.choices.length > 0) {
             const reply = data.choices[0].message.content;
             aiMsgDiv.querySelector(".content").innerText = reply;
+            messages.push({ role: 'ai', text: reply });
+            saveCurrentChat(messages);
         } else if (data.error) {
             aiMsgDiv.querySelector(".content").innerText = "Groq Error: " + data.error.message;
         } else {
