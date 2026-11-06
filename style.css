@@ -10,27 +10,6 @@ body {
     color: #f1f5f9;
     height: 100vh;
     overflow: hidden;
-    position: relative;
-}
-
-/* Background Flying Phoenix Animation */
-body::before {
-    content: "";
-    position: absolute;
-    top: 15%;
-    right: 10%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, rgba(234, 88, 12, 0.03) 50%, transparent 70%);
-    border-radius: 50%;
-    animation: floatGlow 8s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes floatGlow {
-    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.8; }
-    50% { transform: translateY(-25px) scale(1.05); opacity: 1; }
 }
 
 .app-layout {
@@ -38,8 +17,6 @@ body::before {
     width: 100vw;
     height: 100vh;
     background: radial-gradient(circle at top left, #121829 0%, #07090e 60%);
-    position: relative;
-    z-index: 1;
 }
 
 /* Sidebar */
@@ -60,47 +37,16 @@ body::before {
     margin-bottom: 36px;
 }
 
-.phoenix-container {
+.brand-icon {
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #f97316, #ea580c);
     width: 42px;
     height: 42px;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.1));
-    border: 1px solid rgba(249, 115, 22, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
-}
-
-.phoenix-bird {
-    width: 28px;
-    height: 28px;
-    animation: birdHover 3s ease-in-out infinite;
-}
-
-.phoenix-bird .wing.left {
-    transform-origin: 50px 50px;
-    animation: flapLeft 0.8s ease-in-out infinite alternate;
-}
-
-.phoenix-bird .wing.right {
-    transform-origin: 50px 50px;
-    animation: flapRight 0.8s ease-in-out infinite alternate;
-}
-
-@keyframes birdHover {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-4px) rotate(2deg); }
-}
-
-@keyframes flapLeft {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(-25deg) scaleX(0.9); }
-}
-
-@keyframes flapRight {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(25deg) scaleX(0.9); }
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
 }
 
 .brand-text h1 {
