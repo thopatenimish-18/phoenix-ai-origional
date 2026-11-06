@@ -7,18 +7,49 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <header>
-            <h1>🔥 Phoenix AI</h1>
-            <p>Your Personal Study & Code Assistant</p>
-        </header>
-        
-        <div id="chat-box" class="chat-box"></div>
-        
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Ask Phoenix anything..." autocomplete="off">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2>🔥 Phoenix AI</h2>
+                <span class="badge">Pro Assistant</span>
+            </div>
+            <div class="quick-prompts">
+                <h3>Quick Actions</h3>
+                <button onclick="sendPreset('Explain this coding concept clearly')">💻 Code Debugger</button>
+                <button onclick="sendPreset('Summarize this study topic into key bullet points')">📚 Study Summarizer</button>
+                <button onclick="sendPreset('Create a practice quiz for my exam')">🎯 Exam Prep</button>
+            </div>
+            <div class="sidebar-footer">
+                <p>Status: <span class="online-dot"></span> Online</p>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <div class="header-title">
+                    <h1>Phoenix AI Studio</h1>
+                    <p>Your intelligent companion for coding and studies</p>
+                </div>
+            </header>
+            
+            <div id="chat-box" class="chat-box">
+                <div class="message ai-message">
+                    Hello! I'm Phoenix, your personal AI assistant. How can I help you master your studies or build your projects today?
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input type="text" id="user-input" placeholder="Ask Phoenix anything or paste your code..." autocomplete="off" onkeydown="checkEnter(event)">
+                    <button onclick="sendMessage()" class="send-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
+                <div class="disclaimer">Powered by Groq & Llama • Designed for Performance</div>
+            </div>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
