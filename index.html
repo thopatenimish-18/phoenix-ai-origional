@@ -3,51 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix AI - Student Assistant</title>
+    <title>Phoenix AI Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="brand">
-                <h2>🔥 Phoenix AI</h2>
-                <span class="badge">Pro Assistant</span>
+                <div class="brand-icon">🔥</div>
+                <div class="brand-text">
+                    <h1>Phoenix AI</h1>
+                    <span>Studio v2.0</span>
+                </div>
             </div>
-            <div class="quick-prompts">
-                <h3>Quick Actions</h3>
-                <button onclick="sendPreset('Explain this coding concept clearly')">💻 Code Debugger</button>
-                <button onclick="sendPreset('Summarize this study topic into key bullet points')">📚 Study Summarizer</button>
-                <button onclick="sendPreset('Create a practice quiz for my exam')">🎯 Exam Prep</button>
+
+            <div class="nav-section">
+                <p class="section-title">Quick Actions</p>
+                <button class="preset-btn" onclick="sendPreset('Explain this coding concept clearly with an example')">
+                    <span>💻</span> Code Debugger
+                </button>
+                <button class="preset-btn" onclick="sendPreset('Summarize this study topic into key bullet points')">
+                    <span>📚</span> Study Summarizer
+                </button>
+                <button class="preset-btn" onclick="sendPreset('Create a practice quiz with questions for my exam')">
+                    <span>🎯</span> Exam Prep
+                </button>
+                <button class="preset-btn" onclick="sendPreset('Brainstorm creative ideas for my project')">
+                    <span>💡</span> Brainstormer
+                </button>
             </div>
+
             <div class="sidebar-footer">
-                <p>Status: <span class="online-dot"></span> Online</p>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>Groq Llama-3.1 Active</span>
+                </div>
             </div>
         </aside>
 
         <!-- Main Chat Area -->
-        <main class="chat-main">
-            <header class="chat-header">
-                <div class="header-title">
-                    <h1>Phoenix AI Studio</h1>
+        <main class="chat-area">
+            <header class="chat-topbar">
+                <div class="topbar-info">
+                    <h2>Phoenix Assistant</h2>
                     <p>Your intelligent companion for coding and studies</p>
                 </div>
             </header>
-            
-            <div id="chat-box" class="chat-box">
+
+            <div id="chat-box" class="chat-messages">
                 <div class="message ai-message">
-                    Hello! I'm Phoenix, your personal AI assistant. How can I help you master your studies or build your projects today?
+                    <div class="avatar">🔥</div>
+                    <div class="content">Hello! I'm Phoenix. How can I help you master your studies or build your projects today?</div>
                 </div>
             </div>
-            
-            <div class="input-container">
-                <div class="input-wrapper">
-                    <input type="text" id="user-input" placeholder="Ask Phoenix anything or paste your code..." autocomplete="off" onkeydown="checkEnter(event)">
-                    <button onclick="sendMessage()" class="send-btn">
-                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+
+            <div class="chat-input-container">
+                <div class="input-card">
+                    <input type="text" id="user-input" placeholder="Ask Phoenix anything or paste code..." autocomplete="off" onkeydown="checkEnter(event)">
+                    <button onclick="sendMessage()" class="send-btn" title="Send message">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     </button>
                 </div>
-                <div class="disclaimer">Powered by Groq & Llama • Designed for Performance</div>
+                <div class="footer-note">Powered by Groq High-Speed Inference</div>
             </div>
         </main>
     </div>
